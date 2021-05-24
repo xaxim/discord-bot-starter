@@ -1,4 +1,5 @@
 const humanizeDuration = require("humanize-duration");
+const Service = require("../services/service");
 const { EMBED_COLOR } = require("../constants");
 
 const label = "uptime";
@@ -23,9 +24,10 @@ const generator = (msg, args) => {
     delimiter: " ",
     spacer: ""
   });
+  const sessions = Service.getSessions();
   const fields = [
     { "name": `Uptime`, "value": `${shortEnglishHumanizer(process.uptime() * 1000)}`, "inline": true },
-    { "name": `Current session`, "value": `${shortEnglishHumanizer(bot.uptime)}`, "inline": true }
+    { "name": `Session ${sessions.length}`, "value": `${shortEnglishHumanizer(bot.uptime)}`, "inline": true }
   ];
   const embed = {
     "type": "rich",
